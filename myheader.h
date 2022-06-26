@@ -15,8 +15,10 @@ class Customer
 {
     string username,password;
     public :
-        bool login();
+        void set_credentials(string user,string pass);
+        bool login(string id_p,string password_p);
         void purchase();
+        
 };
 
 class Toy
