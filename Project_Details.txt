@@ -1,0 +1,12 @@
+Toy shop management system
+• Users are customers and admin. Only one admin allowed. Admin can also
+    have a password.
+• Information of toys can be read in from a file/from user and purchase receipts
+    can be printed onto a file/screen.
+• Admin can create, update or delete a toy and its details.
+• Customers can see the information of the available toys that have been added
+    by the admin.
+• Customers can buy a toy only if its information is available.
+• A small number of copies of each toy is available.
+• When a toy is purchased print out all relevant information onto a file/screen,
+    including a unique receipt number for each customer.        
