@@ -44,10 +44,14 @@ bool Admin :: login(string id_p,string password_p)
     return true;
 }
 
-void Customer :: set_credentials(string user,string pass)
+void Customer :: create_user(string user,string pass)
 {
     username=user;
     password=pass;
+    fstream file;
+    file.open("customer_details.txt",ios::app);
+    file<<username<<" "<<password<<endl;
+    file.close();
 }
 
 bool Customer :: login(string id_p,string password_p)
@@ -82,4 +86,9 @@ bool Customer :: login(string id_p,string password_p)
         // }
     }
     return true;
+}
+
+void Customer :: display_balance(int cash,Toy t)
+{
+    
 }

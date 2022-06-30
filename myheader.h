@@ -1,6 +1,13 @@
 #include<bits/stdc++.h>
 using namespace std;
-class Admin
+
+class Toy
+{
+    int quantity; string name;
+    int price;bool out_of_stock_flag;
+};
+
+class Admin : public Toy
 {
     string id,password;
     public:
@@ -11,17 +18,15 @@ class Admin
         void create_toy();
 };
 
-class Customer
+class Customer : public Toy
 {
     string username,password;
     public :
-        void set_credentials(string user,string pass);
+        void create_user(string user,string pass);
         bool login(string id_p,string password_p);
         void purchase();
+        void view_toys_list();
+        void search_toy(string name);
+        void display_balance(int cash,Toy t);
         
-};
-
-class Toy
-{
-    
 };
