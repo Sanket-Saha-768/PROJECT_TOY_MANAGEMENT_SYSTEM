@@ -4,6 +4,10 @@ void Admin :: create_admin(string id_p,string password_p)
 {
     id=id_p;
     password=password_p;
+    fstream file;
+    file.open("admin_details.txt",ios::app);
+    file<<id<<" "<<password<<endl;
+    file.close();
 }
 
 bool Admin :: login(string id_p,string password_p)
