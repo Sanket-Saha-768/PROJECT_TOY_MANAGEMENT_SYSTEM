@@ -1,5 +1,4 @@
-These are a few sample toys which i am keeping in this file at the moment for demo and dry run purposes
-ludo uno carrom chess robots cricket_set snake_and_ladder trading_cards toy_gun hotWheels 
+ludo uno carrom chess robots cricket_set snake_and_ladder trading_cards toy_gun hotWheels   
 ludo 10 70 false
 uno 10 70 false
 carrom 10 70 false
@@ -10,3 +9,5 @@ snake_and_ladder 10 70 false
 trading_cards 10 70 false
 toy_gun 10 70 false
 hotWheels 10 70 false
+
+These are a few sample toys which i am keeping in this file at the moment for demo and dry run purposes

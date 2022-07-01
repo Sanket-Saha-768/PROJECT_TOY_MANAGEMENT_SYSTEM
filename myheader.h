@@ -13,7 +13,7 @@ class Admin : public Toy
     public:
         void create_admin(string id_p,string password_p);
         bool login(string id_p,string password_p);
-        void delete_toy();
+        void delete_toy(Toy T);
         void update_toy();
         void create_toy();
 };
@@ -26,7 +26,7 @@ class Customer : public Toy
         bool login(string id_p,string password_p);
         void purchase();
         void view_toys_list();
-        void search_toy(string name);
+        void search_toy();
         void display_balance(int cash,Toy t);
         
 };

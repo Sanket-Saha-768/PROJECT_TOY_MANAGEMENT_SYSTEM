@@ -92,3 +92,19 @@ void Customer :: display_balance(int cash,Toy t)
 {
     
 }
+
+void Admin :: delete_toy(Toy T)
+{
+    //delete the info of this toy from the toy_information file
+    delete(&T);
+}
+
+void Customer :: view_toys_list()
+{
+    ifstream file;string s;
+    file.open("toy_information.txt");
+    while(s!="\t")
+    {
+        getline(file,s,' ');cout<<s<<endl;
+    }
+}
