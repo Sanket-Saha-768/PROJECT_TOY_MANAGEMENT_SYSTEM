@@ -1,4 +1,3 @@
-ludo uno carrom chess robots cricket_set snake_and_ladder trading_cards toy_gun hotWheels   
 ludo 10 70 false
 uno 10 70 false
 carrom 10 70 false

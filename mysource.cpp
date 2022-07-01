@@ -101,10 +101,55 @@ void Admin :: delete_toy(Toy T)
 
 void Customer :: view_toys_list()
 {
-    ifstream file;string s;
-    file.open("toy_information.txt");
-    while(s!="\t")
+    ifstream file;string s; int c=0;
+    file.open("toy_list.txt");
+    while(1)
     {
-        getline(file,s,' ');cout<<s<<endl;
+        getline(file,s);
+        if(!file) break;
+        cout<<s<<endl;
     }
+    file.close();
+}
+
+void Admin :: create_toy()
+{
+    cout<<"Enter the name of the new toy : ";string toy_name;cin>>toy_name;
+    fstream file;
+    file.open("toy_list.txt",ios:: app);
+    file<<endl<<toy_name;
+    file.close();
+}
+
+void Customer :: search_toy()
+{
+    string toy_name,toy_name_from_list,prompt_response;
+    cout<<"Enter the name of the toy that you want to search : ";cin>>toy_name;
+    ifstream file;
+    file.open("toy_list.txt");
+    while(1)
+    {
+        getline(file,toy_name_from_list,' ');
+        if(toy_name==toy_name_from_list)
+        {
+            cout<<toy_name<<" is available in the store. Type yes to purchase when prompted or type no to exit Search Module!!"<<endl;
+            cout<<"Do you want to purchase "<<toy_name<<" ?"<<endl;cin>>prompt_response;
+            if(prompt_response=="yes")
+            {
+                Customer :: purchase();
+                break ;
+            }
+        }
+        else if(!file)
+        {
+            cout<<toy_name<<" is not available in the store at the moment. Contact the admin to add this toy to the list. Thanks!!!";
+            break;
+        }
+    }
+    file.close();
+}
+
+void Customer :: purchase()
+{
+    cout<<"purchase called successfully"<<endl;
 }
