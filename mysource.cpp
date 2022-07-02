@@ -94,14 +94,14 @@ bool Customer ::login(string id_p, string password_p)
     return true;
 }
 
-void Customer ::display_balance(int cash, Toy t)
+void Customer ::display_balance(int cash, string toy_name)
 {
 }
 
-void Admin :: delete_toy(Toy T)
+void Admin :: delete_toy(string toy_name)
 {
-    //delete the info of this toy from the toy_information file
-    delete(&T);
+    // * delete the info of this toy from the toy_information file
+    // delete(&T);
 }
 
 void Customer :: view_toys_list()
