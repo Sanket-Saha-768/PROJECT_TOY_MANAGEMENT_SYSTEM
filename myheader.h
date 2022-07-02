@@ -11,7 +11,7 @@ class Toy
 
 class Admin : public Toy
 {
-    string id,password;
+    string id,password;bool login_status;
     public:
         void create_admin(string id_p,string password_p);
         bool login(string id_p,string password_p);
@@ -20,9 +20,9 @@ class Admin : public Toy
         void create_toy();
 };
 
-class Customer : public Toy
+class Customer : private Toy
 {
-    string username,password;
+    string username,password;bool login_status;
     public :
         void create_user(string user,string pass);
         bool login(string id_p,string password_p);

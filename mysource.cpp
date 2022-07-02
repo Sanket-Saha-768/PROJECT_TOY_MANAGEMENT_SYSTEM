@@ -2,8 +2,9 @@
 
 void Admin ::create_admin(string id_p, string password_p)
 {
-    id = id_p;
-    password = password_p;
+    id=id_p;
+    password=password_p;
+    login_status=false;
     fstream file;
     file.open("admin_details.txt", ios::app);
     file << id << " " << password << endl;
@@ -41,13 +42,16 @@ bool Admin ::login(string id_p, string password_p)
         }
         // }
     }
+    cout<<"Welcome Admin : "<<id<<endl;
+    login_status=true;
     return true;
 }
 
 void Customer ::create_user(string user, string pass)
 {
-    username = user;
-    password = pass;
+    username=user;
+    password=pass;
+    login_status=false;
     fstream file;
     file.open("customer_details.txt", ios::app);
     file << username << " " << password << endl;
@@ -85,6 +89,8 @@ bool Customer ::login(string id_p, string password_p)
         }
         // }
     }
+    cout<<"Welcome Customer : "<<username<<endl;
+    login_status=true;
     return true;
 }
 
@@ -116,7 +122,7 @@ void Admin :: create_toy()
     cout<<"Enter the name of the new toy : ";string toy_name;cin>>toy_name;
     fstream file;
     file.open("toy_list.txt",ios:: app);
-    file<<endl<<toy_name;
+    file<<toy_name<<endl;
     file.close();
 }
 
@@ -141,7 +147,7 @@ void Customer :: search_toy()
         }
         else if(!file)
         {
-            cout<<toy_name<<" is not available in the store at the moment. Contact the admin to add this toy to the list. Thanks!!!";
+            cout<<toy_name<<" is not available in the store at the moment. Contact the admin to add this toy to the list. Thanks!!!"<<endl;
             break;
         }
     }
