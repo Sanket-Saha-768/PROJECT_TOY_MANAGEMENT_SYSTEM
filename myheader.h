@@ -11,25 +11,24 @@ class Toy
 
 class Admin : public Toy
 {
-    string id, password;
-
-public:
-    void create_admin(string id_p, string password_p);
-    bool login(string id_p, string password_p);
-    void delete_toy();
-    void update_toy();
-    void create_toy();
+    string id,password;
+    public:
+        void create_admin(string id_p,string password_p);
+        bool login(string id_p,string password_p);
+        void delete_toy(Toy T);
+        void update_toy();
+        void create_toy();
 };
 
 class Customer : public Toy
 {
-    string username, password;
-
-public:
-    void create_user(string user, string pass);
-    bool login(string id_p, string password_p);
-    void purchase();
-    void view_toys_list();
-    void search_toy(string name);
-    void display_balance(int cash, Toy t);
+    string username,password;
+    public :
+        void create_user(string user,string pass);
+        bool login(string id_p,string password_p);
+        void purchase();
+        void view_toys_list();
+        void search_toy();
+        void display_balance(int cash,Toy t);
+        
 };
