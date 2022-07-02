@@ -134,7 +134,7 @@ void Customer :: search_toy()
     file.open("toy_list.txt");
     while(1)
     {
-        getline(file,toy_name_from_list,' ');
+        getline(file,toy_name_from_list);
         if(toy_name==toy_name_from_list)
         {
             cout<<toy_name<<" is available in the store. Type yes to purchase when prompted or type no to exit Search Module!!"<<endl;
@@ -144,6 +144,11 @@ void Customer :: search_toy()
                 Customer :: purchase();
                 break ;
             }
+            else
+            {
+                //menu
+                break;
+            } 
         }
         else if(!file)
         {

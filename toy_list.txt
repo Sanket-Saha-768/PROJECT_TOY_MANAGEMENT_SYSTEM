@@ -1,12 +1,9 @@
-ludo 
-uno 
-carrom 
-chess 
-robots 
-cricket set 
-snake and ladder 
-trading cards 
-toy gun 
-hotWheels
-yoyo
-hillo
+ludo
+uno
+carrom
+chess
+robots
+cricket
+set
+hotwheels
+somo

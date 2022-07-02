@@ -29,6 +29,5 @@ class Customer
         void purchase();
         void view_toys_list();
         void search_toy();
-        void display_balance(int cash,string toy_name);
-        
+        void display_balance(int cash,string toy_name);        
 };
