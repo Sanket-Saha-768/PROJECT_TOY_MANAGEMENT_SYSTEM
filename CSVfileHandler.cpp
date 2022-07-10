@@ -62,18 +62,6 @@ class CSV_FILE_ITERATOR
 int main()
 {
     CSV_FILE_ITERATOR c;
-    // c.inputData("ludo",10,70,false);
-    // c.inputData("carrom",10,70,false);
-    // c.inputData("cards",10,70,false);
-    // c.inputData("games",10,70,false);
-    // c.inputData("board",10,70,false);
-    // c.inputData("cricket",10,70,false);
-    // c.inputData("hockey",10,70,false);
-    // c.inputData("tennis",10,70,false);
-    c.search("ludo");
-    c.search("carrom");
-    c.search("uno");
-    c.search("hockey");
     map<string, Toy*> m=c.converter();
     return 0;
 }
