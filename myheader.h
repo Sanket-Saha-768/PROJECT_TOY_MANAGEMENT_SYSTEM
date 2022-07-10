@@ -1,13 +1,17 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// class Toy
-// {
-//     int quantity;
-//     string name;
-//     int price;
-//     bool out_of_stock_flag;
-// };
+class Toy
+{
+    public :
+        int quantity;
+        int price;
+        bool out_of_stock_flag;
+        void display()
+        {
+            cout<<" "<<quantity<<" "<<price<<" "<<out_of_stock_flag<<endl;
+        }
+};
 
 class Admin
 {

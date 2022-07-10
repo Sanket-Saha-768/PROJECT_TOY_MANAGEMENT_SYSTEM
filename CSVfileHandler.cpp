@@ -1,4 +1,5 @@
 #include "myheader.h"
+
 class CSV_FILE_ITERATOR
 {
     //separate function for searching each individual field taking the name of the toy as input
@@ -23,18 +24,73 @@ class CSV_FILE_ITERATOR
                 if(s==name) 
                 {
                     flag=true;
+                    cout<<s<<endl;
                     return;
                 }
             }
             if(!flag) cout<<name<<" was not found in the database. Contact admin for the details"<<endl;
         }
 
-        void converter()
+        map<string,Toy*> converter()
         {
-            ifstream file;
-            file.open("toy_information.txt");
-            vector<> dataMatrix;
-        }
+            ifstream file;string toy_name,token,temp; Toy *data_loader=new Toy();
+            file.open("toy_information.csv");
+            map <string,Toy*> dataMatrix;
+            getline(file,toy_name);
+            while(getline(file,toy_name))
+            {
+                stringstream token(toy_name);
+                getline(token,toy_name,',');
+                getline(token,temp,',');data_loader->quantity=stoi(temp);
+                getline(token,temp,',');data_loader->price=stoi(temp);
+                getline(token,temp,',');data_loader->out_of_stock_flag=stoi(temp);
+                dataMatrix.insert(make_pair(toy_name,data_loader));
+            }
+            return dataMatrix;
+        } 
 
-        
+        void delete_toy(string name)
+        {
+            fstream file("toy_information.csv",ios :: in | ios :: app);string s;
+            getline(file,s);
+            cout<<s<<endl;
+            file<<"abdssfsfaf"<<endl;
+            file.close();
+        }    
 };
+
+int main()
+{
+    CSV_FILE_ITERATOR c;
+    // c.inputData("ludo",10,70,false);
+    // c.inputData("carrom",10,70,false);
+    // c.inputData("cards",10,70,false);
+    // c.inputData("games",10,70,false);
+    // c.inputData("board",10,70,false);
+    // c.inputData("cricket",10,70,false);
+    // c.inputData("hockey",10,70,false);
+    // c.inputData("tennis",10,70,false);
+    c.search("ludo");
+    c.search("carrom");
+    c.search("uno");
+    c.search("hockey");
+    map<string, Toy*> m=c.converter();
+    return 0;
+}
+
+
+/*
+
+ludo,10,70,false
+uno,10,70,false
+carrom,10,70,false
+chess,10,70,false
+robots,10,70,false
+cricket_set,10,70,false
+snake_and_ladder,10,70,false
+trading_cards,10,70,false
+toy_gun,10,70,false
+hotWheels,10,70,falseabdssfsfaf
+
+
+*/
