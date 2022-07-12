@@ -9,7 +9,7 @@ class CSV_FILE_ITERATOR
         {
             fstream file;
             file.open("toy_information.csv",ios :: out | ios :: app);
-            file<<name<<","<<quantity<<","<<price<<","<<false<<"\n";
+            file<<name<<","<<quantity<<","<<price<<","<<oos<<"\n";
             file.close();
         }
 
@@ -24,7 +24,7 @@ class CSV_FILE_ITERATOR
                 if(s==name) 
                 {
                     flag=true;
-                    cout<<s<<endl;
+                    cout<<s<<" was found in the database."<<endl;
                     return;
                 }
             }
@@ -51,24 +51,60 @@ class CSV_FILE_ITERATOR
 
         void delete_toy(string name)
         {
-            fstream file("toy_information.csv",ios :: in | ios :: app);string s;
-            getline(file,s);
-            cout<<s<<endl;
-            file<<"abdssfsfaf"<<endl;
-            file.close();
+            fstream source_file("toy_information.csv",ios :: in | ios :: app);
+            string line,word,toy_name;
+            fstream dest_file("new_toy.csv",ios :: out);
+            while(1)
+            {
+                if(!getline(source_file,line)) break;
+                stringstream word(line);
+                getline(word,toy_name,',');
+                if(toy_name!=name) dest_file<<line<<"\n";
+            }
+            dest_file.close();
+            source_file.close();
+            remove("toy_information.csv");
+            rename("new_toy.csv","toy_information.csv");            
         }    
+
+        void update(string name,int quantity,int price, bool oos)
+        {
+            fstream source_file("toy_information.csv",ios :: in | ios :: app);
+            string line,word,toy_name;bool isPresent=false;
+            fstream dest_file("new_toy.csv",ios :: out);
+            while(1)
+            {
+                if(!getline(source_file,line)) break;
+                stringstream word(line);
+                getline(word,toy_name,',');
+                if(toy_name == name)
+                {
+                   isPresent=true;
+                   line="";
+                   line+=toy_name+","+to_string(quantity)+","+to_string(price)+","+to_string(oos);
+                }
+                dest_file<<line<<"\n";
+            }
+            if(!isPresent) inputData(name,quantity,price,oos);
+            dest_file.close();
+            source_file.close();
+            remove("toy_information.csv");
+            rename("new_toy.csv","toy_information.csv");
+        }
 };
 
 int main()
 {
     CSV_FILE_ITERATOR c;
     map<string, Toy*> m=c.converter();
+    c.inputData("nanchucks",89,76,true);
+    c.update("nanchucks",89,43,true);
     return 0;
 }
 
 
 /*
-
+toy_name,quantity,price,is_out_of_stock
 ludo,10,70,false
 uno,10,70,false
 carrom,10,70,false
