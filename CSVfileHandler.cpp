@@ -41,10 +41,19 @@ class CSV_FILE_ITERATOR
             {
                 stringstream token(toy_name);
                 getline(token,toy_name,',');
-                getline(token,temp,',');data_loader->quantity=stoi(temp);
-                getline(token,temp,',');data_loader->price=stoi(temp);
-                getline(token,temp,',');data_loader->out_of_stock_flag=stoi(temp);
+                getline(token,temp,',');
+                data_loader->quantity=stoi(temp);
+                getline(token,temp,',');
+                data_loader->price=stoi(temp);
+                getline(token,temp,',');
+                data_loader->out_of_stock_flag=stoi(temp);
                 dataMatrix.insert(make_pair(toy_name,data_loader));
+                for(auto it : dataMatrix)
+                {
+                    cout<<it.first<<" ";
+                    (it.second)->display();
+                }
+                cout<<endl;
             }
             return dataMatrix;
         } 
@@ -91,14 +100,35 @@ class CSV_FILE_ITERATOR
             remove("toy_information.csv");
             rename("new_toy.csv","toy_information.csv");
         }
+
+        void wiew_list()
+        {
+            ifstream file("toy_information.csv");
+            string row;
+            while(1)
+            {
+                if(!getline(file,row)) return;
+                cout<<row<<endl;
+            }
+            file.close();
+        }
+
+        void write_back(map <string,Toy *> data_matrix)
+        {
+            ofstream file("toy_information.csv",ios :: out);
+            for(auto it : data_matrix) file<<it.first<<","<<(it.second)->quantity<<","<<(it.second)->price<<","<<(it.second)->out_of_stock_flag<<"\n";
+            file.close();
+        }
 };
 
 int main()
 {
     CSV_FILE_ITERATOR c;
     map<string, Toy*> m=c.converter();
-    c.inputData("nanchucks",89,76,true);
-    c.update("nanchucks",89,43,true);
+    for(auto it : m) {cout<<it.first<<" ";(it.second)->display();}
+    cout<<endl;
+    m["carrom"]->price=99;
+    for(auto it : m) {cout<<it.first<<" ";(it.second)->display();}
     return 0;
 }
 
