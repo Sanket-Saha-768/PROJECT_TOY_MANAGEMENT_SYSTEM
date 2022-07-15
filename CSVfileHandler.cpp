@@ -153,14 +153,15 @@ class CSV_FILE_ITERATOR
 
 int main()
 {
-    CSV_FILE_ITERATOR c;
+    CSV_FILE_ITERATOR c; Toy* data;
     // map<string, Toy*> m=c.converter();
     // for(auto it : m) {cout<<it.first<<" ";(it.second)->display();}
     // cout<<endl;
     // m["carrom"]->price=99;
     // for(auto it : m) {cout<<it.first<<" ";(it.second)->display();}
     c.View_List_Customer();
-    c.search("cricket");
+    data=c.search("cricket");
+    cout<<data->price<<" "<<data->out_of_stock_flag<<" "<<data->quantity<<endl;
     return 0;
 }
 
