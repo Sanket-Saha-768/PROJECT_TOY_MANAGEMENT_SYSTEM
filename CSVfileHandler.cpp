@@ -13,9 +13,9 @@ class CSV_FILE_ITERATOR
             file.close();
         }
 
-        void search(string name)
+        Toy* search(string name)
         {
-            fstream file;string s,word;bool flag=false;
+            fstream file;string s,word,token,temp;bool flag=false;Toy* data_loader=new Toy();
             file.open("toy_information.csv",ios :: in);
             while(getline(file,s))
             {
@@ -25,22 +25,37 @@ class CSV_FILE_ITERATOR
                 {
                     flag=true;
                     cout<<s<<" was found in the database."<<endl;
-                    return;
+                    getline(word,temp,',');
+                    data_loader->quantity=stoi(temp);
+                    getline(word,temp,',');
+                    data_loader->price=stoi(temp);
+                    getline(word,temp,',');
+                    data_loader->out_of_stock_flag=stoi(temp);
+                    return data_loader;
                 }
             }
             if(!flag) cout<<name<<" was not found in the database. Contact admin for the details"<<endl;
+            return NULL;
+
+            /*
+                search function is returning a null pointer in  case the searched toy is not in the list. so in ur function please do check for this null pointer before u use it to avoid null pointer reference
+
+                @dasosis
+            */
         }
 
         map<string,Toy*> converter()
         {
-            ifstream file;string toy_name,token,temp; Toy *data_loader=new Toy();
+            ifstream file;
+            string toy_name,token,temp;
+            Toy *data_loader=new Toy();
             file.open("toy_information.csv");
             map <string,Toy*> dataMatrix;
             getline(file,toy_name);
             while(getline(file,toy_name))
             {
                 stringstream token(toy_name);
-                getline(token,toy_name,',');
+                getline(token,toy_name,','); //toy name is the key of the map
                 getline(token,temp,',');
                 data_loader->quantity=stoi(temp);
                 getline(token,temp,',');
@@ -113,6 +128,21 @@ class CSV_FILE_ITERATOR
             file.close();
         }
 
+        void View_List_Customer()
+        {
+            ifstream file("toy_information.csv");
+            string row,word;
+            while(1)
+            {
+                if(!getline(file,row)) return;
+                stringstream word(row);
+                getline(word,row,','); cout<<row<<" ";
+                getline(word,row,',');
+                getline(word,row,','); cout<<row<<endl;
+            }
+            file.close();
+        }
+
         void write_back(map <string,Toy *> data_matrix)
         {
             ofstream file("toy_information.csv",ios :: out);
@@ -124,11 +154,13 @@ class CSV_FILE_ITERATOR
 int main()
 {
     CSV_FILE_ITERATOR c;
-    map<string, Toy*> m=c.converter();
-    for(auto it : m) {cout<<it.first<<" ";(it.second)->display();}
-    cout<<endl;
-    m["carrom"]->price=99;
-    for(auto it : m) {cout<<it.first<<" ";(it.second)->display();}
+    // map<string, Toy*> m=c.converter();
+    // for(auto it : m) {cout<<it.first<<" ";(it.second)->display();}
+    // cout<<endl;
+    // m["carrom"]->price=99;
+    // for(auto it : m) {cout<<it.first<<" ";(it.second)->display();}
+    c.View_List_Customer();
+    c.search("cricket");
     return 0;
 }
 
