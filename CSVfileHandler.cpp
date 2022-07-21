@@ -91,6 +91,53 @@ class CSV_FILE_ITERATOR
             rename("new_toy.csv","toy_information.csv");            
         }    
 
+        
+void update_customer_details(string id, string password, int balance)
+{
+    // ifstream file("customer_details.csv");
+    // char file1name[] = "customer_details.csv";
+    // fstream file1;file1.open("customer_details_copy.csv", ios ::out | ios :: app);
+    // char file2name[] = "customer_details_copy.csv";
+    // string row, word, cell;
+    // int renamed,removed;
+    // while (1)
+    // {
+    //     if (!getline(file, row)) return;
+    //     stringstream word(row);
+    //     getline(word, cell, ',');
+    //     if (cell != id)
+    //         file1 << row << endl;
+    //     else
+    //         file1 << id << "," << password << "," << balance << endl;
+    // }
+    // file.close();
+    // file1.close();
+    // // remove("customer_details.csv");
+    // // rename("customer_details_copy.csv", "customer_details.csv");    
+    // //rename(file2name, file1name);
+    // removed = remove(file1name);
+    // renamed = rename(file2name, file1name);
+    fstream source_file("customer_details.csv",ios :: in | ios :: app);
+    string line,word,name;
+    fstream dest_file("new_customer.csv",ios :: out);
+    while(1)
+    {
+        if(!getline(source_file,line)) break;
+        stringstream word(line);
+        getline(word,name,',');
+        if(id == name)
+        {
+            line="";
+            line+=id+","+password+","+to_string(balance);
+        }
+        dest_file<<line<<"\n";
+    }
+    dest_file.close();
+    source_file.close();
+    remove("customer_details.csv");
+    rename("new_customer.csv","customer_details.csv");
+}
+
         void update_toy(string name,int quantity,int price, bool oos)
         {
             fstream source_file("toy_information.csv",ios :: in | ios :: app);
@@ -172,15 +219,8 @@ class CSV_FILE_ITERATOR
 
 int main()
 {
-    CSV_FILE_ITERATOR c; Toy* data;
-    // map<string, Toy*> m=c.converter();
-    // for(auto it : m) {cout<<it.first<<" ";(it.second)->display();}
-    // cout<<endl;
-    // m["carrom"]->price=99;
-    // for(auto it : m) {cout<<it.first<<" ";(it.second)->display();}
-    c.View_List_Customer();
-    data=c.search("cricket");
-    cout<<data->price<<" "<<data->out_of_stock_flag<<" "<<data->quantity<<endl;
+    CSV_FILE_ITERATOR c; 
+    c.update_customer_details("somo","somo",30);
     return 0;
 }
 

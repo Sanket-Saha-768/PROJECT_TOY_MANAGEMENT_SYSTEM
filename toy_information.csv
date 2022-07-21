@@ -1,10 +1,10 @@
 toy_name,quantity,price,is_out_of_stock
-carrom,10,70,0
+carrom,0,70,1
 cards,10,70,0
-games,10,70,0
+games,8,70,0
 board,10,70,0
 cricket,1,85,0
-hockey,10,70,0
+hockey,5,70,0
 tennis,10,70,0
 llsa,10,70,1
 nanchucks,89,43,1

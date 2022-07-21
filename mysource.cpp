@@ -16,7 +16,8 @@ void menu()
     cout << "-------------------------------------------" << endl;
     cout << "Enter your choice : ";
     cin >> choice;
-    if (choice == 0) return;
+    if (choice == 0)
+        return;
     string id, password;
     cout << "\n-------------------------------------------" << endl;
     cout << "\nEnter Login id : ";
@@ -232,26 +233,50 @@ int CSV_FILE_ITERATOR ::getBalance(string id)
     return stoi(row);
 }
 
-void CSV_FILE_ITERATOR ::update_customer_details(string id, string password, int balance)
+void CSV_FILE_ITERATOR :: update_customer_details(string id, string password, int balance)
 {
-    ifstream file("customer_details.csv");
-    ofstream file1("customer_details_copy.csv", ios ::out);
-    string row, word, cell;
-    while (1)
+    // ifstream file("customer_details.csv");
+    // char file1name[] = "customer_details.csv";
+    // fstream file1;file1.open("customer_details_copy.csv", ios ::out | ios :: app);
+    // char file2name[] = "customer_details_copy.csv";
+    // string row, word, cell;
+    // int renamed,removed;
+    // while (1)
+    // {
+    //     if (!getline(file, row)) return;
+    //     stringstream word(row);
+    //     getline(word, cell, ',');
+    //     if (cell != id)
+    //         file1 << row << endl;
+    //     else
+    //         file1 << id << "," << password << "," << balance << endl;
+    // }
+    // file.close();
+    // file1.close();
+    // // remove("customer_details.csv");
+    // // rename("customer_details_copy.csv", "customer_details.csv");    
+    // //rename(file2name, file1name);
+    // removed = remove(file1name);
+    // renamed = rename(file2name, file1name);
+    fstream source_file("customer_details.csv",ios :: in | ios :: app);
+    string line,word,name;
+    fstream dest_file("new_customer.csv",ios :: out);
+    while(1)
     {
-        if (!getline(file, row))
-            return;
-        stringstream word(row);
-        getline(word, cell, ',');
-        if (cell != id)
-            file1 << row << endl;
-        else
-            file1 << id << "," << password << "," << balance << endl;
+        if(!getline(source_file,line)) break;
+        stringstream word(line);
+        getline(word,name,',');
+        if(id == name)
+        {
+            line="";
+            line+=id+","+password+","+to_string(balance);
+        }
+        dest_file<<line<<"\n";
     }
-    file.close();
-    file1.close();
+    dest_file.close();
+    source_file.close();
     remove("customer_details.csv");
-    rename("customer_details_copy.csv", "customer_details.csv");
+    rename("new_customer.csv","customer_details.csv");
 }
 
 // void Admin ::create_admin(string id_p, string password_p)
@@ -267,12 +292,12 @@ void CSV_FILE_ITERATOR ::update_customer_details(string id, string password, int
 
 bool Admin ::login(string id_p, string password_p)
 {
-    if(id!=id_p)
+    if (id != id_p)
     {
         cout << "XXXXXXXX  INVALID ADMIN ID. TRY AGAIN!! XXXXXXXXX" << endl;
         menu();
     }
-    if(password!=password_p)
+    if (password != password_p)
     {
         cout << "XXXXXXXX  INVALID ADMIN PASSWORD. TRY AGAIN!! XXXXXXXXX" << endl;
         menu();
@@ -370,13 +395,13 @@ bool Customer ::purchase(string toy_name)
         // int price = get_price(toy_name);
         if (balance >= item->price)
         {
-            update_customer_details(username, password, balance - item->price);
+            update_customer_details(username, password, (balance - item->price));
             // update purchase record
             update_purchase_record(username, toy_name, 1, item->price, timesec);
             update_toy(toy_name, item->quantity - 1, item->price, ((item->quantity - 1 == 0) ? true : false));
             // update purchase reciept
             // call function to open purchase reciept
-            print_reciept(toy_name, item->quantity - 1, item->price, timesec);
+            print_reciept(toy_name, item->quantity - 1, item->price, timesec, balance - item->price);
             interface();
             return true;
         }
@@ -395,7 +420,7 @@ bool Customer ::purchase(string toy_name)
     }
 }
 
-void Admin :: view_toy_list()
+void Admin ::view_toy_list()
 {
     View_List_Customer();
     interface_admin();
@@ -417,30 +442,37 @@ void Admin ::interface_admin()
 
     switch (choice)
     {
-        case 1: create_toy();
+    case 1:
+        create_toy();
         break;
-        case 2: update_toy();
+    case 2:
+        update_toy();
         break;
-        case 3: delete_toy();
+    case 3:
+        delete_toy();
         break;
-        case 4 : view_toy_list();
+    case 4:
+        view_toy_list();
         break;
-        case 5 : create_user();
+    case 5:
+        create_user();
         break;
-        case 0: menu();
+    case 0:
+        menu();
         break;
-        default:
-                 {
-                    cout<<"Invalid Choice!!"<<endl;
-                    interface_admin();
-                 }
-        break;
+    default:
+    {
+        cout << "Invalid Choice!!" << endl;
+        interface_admin();
+    }
+    break;
     }
 }
 
 bool Customer ::login(string id_p, string password_p)
 {
-    int tries = 0; bool assignment=false;
+    int tries = 0;
+    bool assignment = false;
     ifstream file("customer_details.csv");
     string row, word, line;
     getline(file, row);
@@ -455,15 +487,15 @@ bool Customer ::login(string id_p, string password_p)
             username = row;
             getline(word, row, ',');
             password = row;
-            assignment=true;
+            assignment = true;
             break;
         }
     }
-    if(!assignment)
+    if (!assignment)
     {
         cout << "XXXXXXXX  INVALID USER ID. TRY AGAIN!! XXXXXXXXX" << endl;
         cout << endl
-                << endl;
+             << endl;
         menu();
     }
     while (1)
@@ -485,7 +517,7 @@ bool Customer ::login(string id_p, string password_p)
     return true;
 }
 
-void Customer :: view_toy_list()
+void Customer ::view_toys_list()
 {
     View_List_Customer();
     interface();
@@ -519,8 +551,9 @@ void Customer ::interface()
             cout << "\nPurchase unsuccessfull!!!" << endl;
     }
     break;
-    case 2: view_toy_list();
-    break;
+    case 2:
+        view_toys_list();
+        break;
     case 3:
     {
         string toy_name;
@@ -654,8 +687,9 @@ int generalMenu()
     return choice;
 }
 
-void print_reciept(string toy_name, int quantity, int price, time_t pur_id)
+void print_reciept(string toy_name, int quantity, int price, time_t pur_id, int balance)
 {
+    cout << "\n-------------------------------------------" << endl;
     cout << "Thank you for purchasing with us!" << endl;
     cout << "-------------------------------------------" << endl;
     cout << "Your Bill : " << endl
@@ -663,6 +697,7 @@ void print_reciept(string toy_name, int quantity, int price, time_t pur_id)
     cout << toy_name << " x "
          << "1" << endl;
     cout << "Total Price : " << price << endl;
+    cout << "Your Current Balance : " << balance << endl;
     cout << "Your Purchase ID : " << pur_id << endl
          << endl;
     cout << "-------------------------------------------" << endl;
