@@ -489,7 +489,7 @@ void Customer ::interface()
     }
     break;
     case 2:
-        view_toys_list();
+        CSV_FILE_ITERATOR :: view_list();
         break;
     case 3:
     {

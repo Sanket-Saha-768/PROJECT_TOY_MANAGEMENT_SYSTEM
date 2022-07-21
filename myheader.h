@@ -57,7 +57,7 @@ class Customer : public CSV_FILE_ITERATOR
         bool login(string id_p,string password_p);
         void interface();
         bool purchase(string toy_name);
-        //void view_toys_list();
+        void view_toys_list();
         bool search_toy();
         void display_balance(int cash,string toy_name);        
 };
