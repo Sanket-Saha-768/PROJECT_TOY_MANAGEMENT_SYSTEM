@@ -388,6 +388,7 @@ void Admin ::create_user()
 bool Customer ::purchase(string toy_name)
 {
     Toy *item = search(toy_name);
+    if(item->out_of_stock_flag==true) return false;
     time_t timesec = time(0);
     if (item)
     {

@@ -1,5 +1,5 @@
 toy_name,quantity,price,is_out_of_stock
-carrom,0,70,1
+carrom,-1,70,0
 cards,10,70,0
 games,8,70,0
 board,10,70,0
