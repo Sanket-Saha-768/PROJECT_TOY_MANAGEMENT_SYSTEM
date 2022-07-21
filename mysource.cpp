@@ -1,9 +1,9 @@
 #include "myheader.h"
 
-Admin :: Admin()
+Admin ::Admin()
 {
-    id="Admin1";
-    password="pass985";
+    id = "Admin1";
+    password = "pass985";
 }
 
 void menu()
@@ -295,6 +295,7 @@ bool Admin ::login(string id_p, string password_p)
         // }
     }
     cout << "Welcome Admin : " << id << endl;
+    interface_admin();
     login_status = true;
     return true;
 }
@@ -353,11 +354,15 @@ void Admin ::create_user()
     // file.open("customer_details.csv", ios::app);
     // file << username << " " << password << endl;
     // file.close();
-    string username,user_password;int balance;
-    cout<<"Enter the name of the user : ";cin>>username;
-    cout<<"Enter the password for the user "<<username<<" : ";cin>>user_password;
-    cout<<"Enter the user "<<username<<"'s account balance : ";cin>>balance;
-    create_customer(username,user_password,balance);
+    string username, user_password;
+    int balance;
+    cout << "Enter the name of the user : ";
+    cin >> username;
+    cout << "Enter the password for the user " << username << " : ";
+    cin >> user_password;
+    cout << "Enter the user " << username << "'s account balance : ";
+    cin >> balance;
+    create_customer(username, user_password, balance);
 }
 
 bool Customer ::purchase(string toy_name)
@@ -377,17 +382,20 @@ bool Customer ::purchase(string toy_name)
             // update purchase reciept
             // call function to open purchase reciept
             print_reciept(toy_name, item->quantity - 1, item->price, timesec);
+            interface();
             return true;
         }
         else
         {
             cout << "Not enough balance" << endl;
+            interface();
             return true;
         }
     }
     else
     {
         cout << "Toy Out of Stock" << endl;
+        interface();
         return false;
     }
 }
@@ -429,38 +437,42 @@ bool Customer ::login(string id_p, string password_p)
 {
     int tries = 0;
     ifstream file("customer_details.csv");
-    string row,word,line;
-    cout<<row<<endl;
-    getline(file,row);
-    while(1)
-    {   
-        if(!getline(file,row)) return false;
+    string row, word, line;
+    cout << row << endl;
+    getline(file, row);
+    while (1)
+    {
+        if (!getline(file, row))
+            return false;
         stringstream word(row);
-        getline(word,row,',');
-        if(row==id_p)
+        getline(word, row, ',');
+        if (row == id_p)
         {
-            username=row;
-            getline(word,row,',');
-            password=row;
+            username = row;
+            getline(word, row, ',');
+            password = row;
             break;
         }
-        else 
+        else
         {
             cout << "XXXXXXXX  INVALID USER ID. TRY AGAIN!! XXXXXXXXX" << endl;
-            cout<<endl<<endl;
+            cout << endl
+                 << endl;
             menu();
         }
     }
-    while(1)
+    while (1)
     {
-        if(password_p!=password_p) 
+        if (password_p != password_p)
         {
             cout << "XXXXXXXX  INVALID USER PASSWORD. TRY AGAIN!! XXXXXXXXX" << endl;
-            cout<<endl<<endl;
+            cout << endl
+                 << endl;
             menu();
         }
-        else break;
-    }    
+        else
+            break;
+    }
     cout << "Welcome Customer : " << username << endl;
     interface();
     login_status = true;
@@ -494,8 +506,11 @@ void Customer ::interface()
     }
     break;
     case 2:
-        CSV_FILE_ITERATOR :: view_list();
-        break;
+    {
+        CSV_FILE_ITERATOR ::view_list();
+        interface();
+    }
+    break;
     case 3:
     {
         string toy_name;
@@ -507,13 +522,24 @@ void Customer ::interface()
         }
         else
             cout << "The toy is not available in the store" << endl;
+        interface();
     }
     break;
     case 4:
+    {
         cout << "Remaining Balance - " << getBalance(username) << endl;
+        interface();
+    }
+    break;
+    case 0:
+        menu();
         break;
     default:
-        break;
+    {
+        cout << "Invalid Choice!";
+        interface();
+    }
+    break;
     }
     /*
         switch (choice)
@@ -621,7 +647,9 @@ void print_reciept(string toy_name, int quantity, int price, time_t pur_id)
     cout << "Thank you for purchasing with us!" << endl;
     cout << "Your Bill : " << endl
          << endl;
-    cout << toy_name << " x " << quantity << endl;
-    cout << "Total Price : " << price * quantity << endl;
-    cout << "Your Purchase ID : " << pur_id << endl;
+    cout << toy_name << " x "
+         << "1" << endl;
+    cout << "Total Price : " << price << endl;
+    cout << "Your Purchase ID : " << pur_id << endl
+         << endl;
 }
