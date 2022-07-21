@@ -3,6 +3,7 @@
 int main()
 {
     cout << "Welcome to Toy Shop Management Interface" << endl;
+    cout << "-------------------------------------------" << endl;
     menu();
     // switch (generalMenu())
     // {

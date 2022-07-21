@@ -9,18 +9,22 @@ Admin ::Admin()
 void menu()
 {
     int choice;
+    cout << "\n-------------------------------------------" << endl;
     cout << "1 -> Login as Admin" << endl;
     cout << "2 -> Login as Customer" << endl;
     cout << "0 -> Exit Toy Shop Management Interface" << endl;
-    cout << "Enter your choice : " << endl;
+    cout << "-------------------------------------------" << endl;
+    cout << "Enter your choice : ";
     cin >> choice;
     if (choice == 0)
         return;
     string id, password;
-    cout << "Enter Login id : ";
+    cout << "\n-------------------------------------------" << endl;
+    cout << "\nEnter Login id : ";
     cin >> id;
     cout << "Enter Password : ";
     cin >> password;
+    cout << "-------------------------------------------" << endl;
     if (choice == 1)
     {
         Admin admin;
@@ -226,6 +230,7 @@ int CSV_FILE_ITERATOR ::getBalance(string id)
         }
     }
     file.close();
+    return stoi(row);
 }
 
 void CSV_FILE_ITERATOR ::update_customer_details(string id, string password, int balance)
@@ -294,7 +299,8 @@ bool Admin ::login(string id_p, string password_p)
         }
         // }
     }
-    cout << "Welcome Admin : " << id << endl;
+    cout << "\n-------------------------------------------" << endl;
+    cout << "\nWelcome Admin : " << id << endl;
     interface_admin();
     login_status = true;
     return true;
@@ -304,10 +310,13 @@ void Admin ::delete_toy()
 {
     string toy_name;
 
+    cout << "\n-------------------------------------------" << endl;
     cout << "Enter the name of the toy to be DELETED : ";
     cin >> toy_name;
+    cout << "-------------------------------------------" << endl;
 
     CSV_FILE_ITERATOR ::delete_toy(toy_name);
+    interface_admin();
 }
 
 void Admin ::create_toy()
@@ -316,14 +325,17 @@ void Admin ::create_toy()
     int quantity;
     int price;
 
+    cout << "\n-------------------------------------------" << endl;
     cout << "Enter the name of the NEW toy : ";
     cin >> toy_name;
     cout << "Enter the quantity of the NEW toy : ";
     cin >> quantity;
     cout << "Enter the price of the NEW toy : ";
     cin >> price;
+    cout << "-------------------------------------------" << endl;
 
     inputData(toy_name, quantity, price, false);
+    interface_admin();
 }
 
 void Admin ::update_toy()
@@ -332,7 +344,7 @@ void Admin ::update_toy()
     int quantity;
     int price;
     bool oos;
-
+    cout << "\n-------------------------------------------" << endl;
     cout << "Enter the name of the toy to be UPDATED : ";
     cin >> toy_name;
     cout << "Enter the quantity of the UPDATED toy : ";
@@ -341,8 +353,10 @@ void Admin ::update_toy()
     cin >> price;
     cout << "If toy is out of stock? : ";
     cin >> oos;
+    cout << "-------------------------------------------" << endl;
 
     CSV_FILE_ITERATOR ::update_toy(toy_name, quantity, price, oos);
+    interface_admin();
 }
 
 void Admin ::create_user()
@@ -356,13 +370,16 @@ void Admin ::create_user()
     // file.close();
     string username, user_password;
     int balance;
-    cout << "Enter the name of the user : ";
+    cout << "-------------------------------------------" << endl;
+    cout << "\nEnter the name of the user : ";
     cin >> username;
-    cout << "Enter the password for the user " << username << " : ";
+    cout << "\nEnter the password for the user " << username << " : ";
     cin >> user_password;
-    cout << "Enter the user " << username << "'s account balance : ";
+    cout << "\nEnter the user " << username << "'s account balance : ";
     cin >> balance;
+    cout << "-------------------------------------------" << endl;
     create_customer(username, user_password, balance);
+    interface_admin();
 }
 
 bool Customer ::purchase(string toy_name)
@@ -403,10 +420,12 @@ bool Customer ::purchase(string toy_name)
 void Admin ::interface_admin()
 {
     int choice;
+    cout << "\n-------------------------------------------" << endl;
     cout << "1 - Create a Toy" << endl;
     cout << "2 - Update Toy" << endl;
     cout << "3 - Delete a Toy" << endl;
     cout << "0 - Exit" << endl;
+    cout << "-------------------------------------------" << endl;
     cout << "Enter your choice" << endl;
     cin >> choice;
 
@@ -473,7 +492,8 @@ bool Customer ::login(string id_p, string password_p)
         else
             break;
     }
-    cout << "Welcome Customer : " << username << endl;
+    cout << "\n-------------------------------------------" << endl;
+    cout << "\nWelcome Customer : " << username << endl;
     interface();
     login_status = true;
     return true;
@@ -482,11 +502,13 @@ bool Customer ::login(string id_p, string password_p)
 void Customer ::interface()
 {
     int choice;
+    cout << "\n-------------------------------------------" << endl;
     cout << "1 - Purchase a Toy" << endl;
     cout << "2 - View Toy List" << endl;
     cout << "3 - Search a Toy" << endl;
     cout << "4 - Display Balance" << endl;
     cout << "0 - Exit" << endl;
+    cout << "-------------------------------------------" << endl;
     cout << "Enter your choice" << endl;
     cin >> choice;
 
@@ -499,10 +521,10 @@ void Customer ::interface()
         cin >> toy_name;
         if (purchase(toy_name))
         {
-            cout << "Purchase successfull!!!" << endl;
+            cout << "\nPurchase successfull!!!" << endl;
         }
         else
-            cout << "Purchase unsuccessfull!!!" << endl;
+            cout << "\nPurchase unsuccessfull!!!" << endl;
     }
     break;
     case 2:
@@ -514,20 +536,20 @@ void Customer ::interface()
     case 3:
     {
         string toy_name;
-        cout << "What toy do you want to search? ";
+        cout << "\nWhat toy do you want to search? ";
         cin >> toy_name;
         if (search(toy_name))
         {
-            cout << "The Toy is available in the store" << endl;
+            cout << "\nThe Toy is available in the store" << endl;
         }
         else
-            cout << "The toy is not available in the store" << endl;
+            cout << "\nThe toy is not available in the store" << endl;
         interface();
     }
     break;
     case 4:
     {
-        cout << "Remaining Balance - " << getBalance(username) << endl;
+        cout << "\nRemaining Balance - " << getBalance(username) << endl;
         interface();
     }
     break;
@@ -633,10 +655,12 @@ bool Customer ::search_toy(string toy_name)
 int generalMenu()
 {
     int choice;
-    cout << "Welcome to Toy Shop Management Interface" << endl;
+    cout << "\nWelcome to Toy Shop Management Interface" << endl;
+    cout << "-------------------------------------------" << endl;
     cout << "1 -> Login as an Admin" << endl;
     cout << "2 -> Login as a Customer" << endl;
     cout << "0 -> Exit Toy Shop Management Interface" << endl;
+    cout << "-------------------------------------------" << endl;
     cout << "Enter your choice :";
     cin >> choice;
     return choice;
@@ -645,6 +669,7 @@ int generalMenu()
 void print_reciept(string toy_name, int quantity, int price, time_t pur_id)
 {
     cout << "Thank you for purchasing with us!" << endl;
+    cout << "-------------------------------------------" << endl;
     cout << "Your Bill : " << endl
          << endl;
     cout << toy_name << " x "
@@ -652,4 +677,5 @@ void print_reciept(string toy_name, int quantity, int price, time_t pur_id)
     cout << "Total Price : " << price << endl;
     cout << "Your Purchase ID : " << pur_id << endl
          << endl;
+    cout << "-------------------------------------------" << endl;
 }
