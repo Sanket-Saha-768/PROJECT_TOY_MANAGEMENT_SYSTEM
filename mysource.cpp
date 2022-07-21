@@ -430,6 +430,8 @@ bool Customer ::login(string id_p, string password_p)
     int tries = 0;
     ifstream file("customer_details.csv");
     string row,word,line;
+    cout<<row<<endl;
+    getline(file,row);
     while(1)
     {   
         if(!getline(file,row)) return false;
