@@ -32,6 +32,7 @@ class CSV_FILE_ITERATOR
         void update_customer_details(string id,string password,int balance);
         void update_purchase_record(string customer_id,string toy_name,int purchase_quantity,int toy_price,time_t date_and_time);
         void create_customer(string customer_id,string password, int balance);
+        
 };
 
 
@@ -40,7 +41,7 @@ class Admin : public CSV_FILE_ITERATOR
     string id,password;bool login_status;
     public:
         Admin();
-        // void interface_admin();
+        void interface_admin();
         void login_menu();
         bool login(string id_p,string password_p);
         void delete_toy();

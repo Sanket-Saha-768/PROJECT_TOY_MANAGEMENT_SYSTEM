@@ -9,7 +9,6 @@ Admin :: Admin()
 void menu()
 {
     int choice;
-    cout << "Welcome to Toy Shop Management Interface" << endl;
     cout << "1 -> Login as Admin" << endl;
     cout << "2 -> Login as Customer" << endl;
     cout << "0 -> Exit Toy Shop Management Interface" << endl;
@@ -251,16 +250,16 @@ void CSV_FILE_ITERATOR ::update_customer_details(string id, string password, int
     rename("customer_details_copy.csv", "customer_details.csv");
 }
 
-void Admin ::create_admin(string id_p, string password_p)
-{
-    id = id_p;
-    password = password_p;
-    login_status = false;
-    fstream file;
-    file.open("admin_details.txt", ios::app);
-    file << id << " " << password << endl;
-    file.close();
-}
+// void Admin ::create_admin(string id_p, string password_p)
+// {
+//     id = id_p;
+//     password = password_p;
+//     login_status = false;
+//     fstream file;
+//     file.open("admin_details.txt", ios::app);
+//     file << id << " " << password << endl;
+//     file.close();
+// }
 
 bool Admin ::login(string id_p, string password_p)
 {
@@ -354,6 +353,11 @@ void Admin ::create_user()
     // file.open("customer_details.csv", ios::app);
     // file << username << " " << password << endl;
     // file.close();
+    string username,user_password;int balance;
+    cout<<"Enter the name of the user : ";cin>>username;
+    cout<<"Enter the password for the user "<<username<<" : ";cin>>user_password;
+    cout<<"Enter the user "<<username<<"'s account balance : ";cin>>balance;
+    create_customer(username,user_password,balance);
 }
 
 bool Customer ::purchase(string toy_name)
@@ -424,37 +428,41 @@ void Admin ::interface_admin()
 bool Customer ::login(string id_p, string password_p)
 {
     int tries = 0;
-    while (id_p != username and tries != 3)
-    {
-        // if()
-        // {
-        cout << "XXXXXXXX  INVALID USER ID. TRY AGAIN!! XXXXXXXXX" << endl;
-        tries += 1;
-        if (tries == 3)
+    ifstream file("customer_details.csv");
+    string row,word,line;
+    while(1)
+    {   
+        if(!getline(file,row)) return false;
+        stringstream word(row);
+        getline(word,row,',');
+        if(row==id_p)
         {
-            cout << "You have entered the incorrect id 3 times in a row. Exiting user interface" << endl;
-            return false;
+            username=row;
+            getline(word,row,',');
+            password=row;
+            break;
         }
-
-        // }
-    }
-    tries = 0;
-    while (tries != 3 and password_p != password)
-    {
-        // if()
-        // {
-        cout << "XXXXXXXX  INVALID USER PASSWORD. TRY AGAIN!! XXXXXXXXX" << endl;
-        tries += 1;
-        if (tries == 3)
+        else 
         {
-            cout << "You have entered the incorrect password 3 times in a row. Exiting user interface" << endl;
-            return false;
+            cout << "XXXXXXXX  INVALID USER ID. TRY AGAIN!! XXXXXXXXX" << endl;
+            cout<<endl<<endl;
+            menu();
         }
-        // }
     }
+    while(1)
+    {
+        if(password_p!=password_p) 
+        {
+            cout << "XXXXXXXX  INVALID USER PASSWORD. TRY AGAIN!! XXXXXXXXX" << endl;
+            cout<<endl<<endl;
+            menu();
+        }
+        else break;
+    }    
     cout << "Welcome Customer : " << username << endl;
     login_status = true;
     return true;
+    interface();
 }
 
 void Customer ::interface()
