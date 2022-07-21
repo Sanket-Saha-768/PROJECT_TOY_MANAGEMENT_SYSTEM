@@ -1,5 +1,11 @@
 #include "myheader.h"
 
+Admin :: Admin()
+{
+    id=Admin1;
+    password=pass985;
+}
+
 void menu()
 {
     int choice;
@@ -260,6 +266,7 @@ bool Admin ::login(string id_p, string password_p)
 {
 
     int tries = 0;
+
     while (id_p != id and tries != 3)
     {
         // if()

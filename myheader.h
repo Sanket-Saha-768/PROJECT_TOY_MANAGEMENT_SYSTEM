@@ -39,7 +39,7 @@ class Admin : public CSV_FILE_ITERATOR
 {
     string id,password;bool login_status;
     public:
-        void create_admin(string id_p,string password_p);
+        Admin();
         // void interface_admin();
         void login_menu();
         bool login(string id_p,string password_p);
