@@ -16,7 +16,8 @@ void menu()
     cout << "-------------------------------------------" << endl;
     cout << "Enter your choice : ";
     cin >> choice;
-    if (choice == 0) return;
+    if (choice == 0)
+        return;
     string id, password;
     cout << "\n-------------------------------------------" << endl;
     cout << "\nEnter Login id : ";
@@ -267,12 +268,12 @@ void CSV_FILE_ITERATOR ::update_customer_details(string id, string password, int
 
 bool Admin ::login(string id_p, string password_p)
 {
-    if(id!=id_p)
+    if (id != id_p)
     {
         cout << "XXXXXXXX  INVALID ADMIN ID. TRY AGAIN!! XXXXXXXXX" << endl;
         menu();
     }
-    if(password!=password_p)
+    if (password != password_p)
     {
         cout << "XXXXXXXX  INVALID ADMIN PASSWORD. TRY AGAIN!! XXXXXXXXX" << endl;
         menu();
@@ -395,7 +396,7 @@ bool Customer ::purchase(string toy_name)
     }
 }
 
-void Admin :: view_toy_list()
+void Admin ::view_toy_list()
 {
     View_List_Customer();
     interface_admin();
@@ -417,24 +418,30 @@ void Admin ::interface_admin()
 
     switch (choice)
     {
-        case 1: create_toy();
+    case 1:
+        create_toy();
         break;
-        case 2: update_toy();
+    case 2:
+        update_toy();
         break;
-        case 3: delete_toy();
+    case 3:
+        delete_toy();
         break;
-        case 4 : view_toy_list();
+    case 4:
+        view_toy_list();
         break;
-        case 5 : create_user();
+    case 5:
+        create_user();
         break;
-        case 0: menu();
+    case 0:
+        menu();
         break;
-        default:
-                 {
-                    cout<<"Invalid Choice!!"<<endl;
-                    interface_admin();
-                 }
-        break;
+    default:
+    {
+        cout << "Invalid Choice!!" << endl;
+        interface_admin();
+    }
+    break;
     }
 }
 
@@ -485,7 +492,7 @@ bool Customer ::login(string id_p, string password_p)
     return true;
 }
 
-void Customer :: view_toy_list()
+void Customer ::view_toys_list()
 {
     View_List_Customer();
     interface();
@@ -519,8 +526,9 @@ void Customer ::interface()
             cout << "\nPurchase unsuccessfull!!!" << endl;
     }
     break;
-    case 2: view_toy_list();
-    break;
+    case 2:
+        view_toys_list();
+        break;
     case 3:
     {
         string toy_name;
@@ -656,6 +664,7 @@ int generalMenu()
 
 void print_reciept(string toy_name, int quantity, int price, time_t pur_id)
 {
+    cout << "\n-------------------------------------------" << endl;
     cout << "Thank you for purchasing with us!" << endl;
     cout << "-------------------------------------------" << endl;
     cout << "Your Bill : " << endl
