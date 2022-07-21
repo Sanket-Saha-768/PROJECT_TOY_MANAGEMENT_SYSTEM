@@ -462,9 +462,9 @@ bool Customer ::login(string id_p, string password_p)
         else break;
     }    
     cout << "Welcome Customer : " << username << endl;
+    interface();
     login_status = true;
     return true;
-    interface();
 }
 
 void Customer ::interface()
