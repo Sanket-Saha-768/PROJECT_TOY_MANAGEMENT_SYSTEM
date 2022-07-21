@@ -40,7 +40,7 @@ class Admin : public CSV_FILE_ITERATOR
     string id,password;bool login_status;
     public:
         void create_admin(string id_p,string password_p);
-        void interface_admin();
+        // void interface_admin();
         void login_menu();
         bool login(string id_p,string password_p);
         void delete_toy();
@@ -53,7 +53,7 @@ class Customer : public CSV_FILE_ITERATOR
 {
     string username,password;bool login_status;
     public :
-        bool login_menu();
+        // bool login_menu();
         bool login(string id_p,string password_p);
         void interface();
         bool purchase(string toy_name);
