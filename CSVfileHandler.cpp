@@ -13,7 +13,7 @@ class CSV_FILE_ITERATOR
             file.close();
         }
 
-        Toy* search(string name)
+        Toy* search(string name) // send the toy object to the purchase function 
         {
             fstream file;string s,word,token,temp;bool flag=false;Toy* data_loader=new Toy();
             file.open("toy_information.csv",ios :: in);
@@ -91,7 +91,7 @@ class CSV_FILE_ITERATOR
             rename("new_toy.csv","toy_information.csv");            
         }    
 
-        void update(string name,int quantity,int price, bool oos)
+        void update_toy(string name,int quantity,int price, bool oos)
         {
             fstream source_file("toy_information.csv",ios :: in | ios :: app);
             string line,word,toy_name;bool isPresent=false;
@@ -147,6 +147,25 @@ class CSV_FILE_ITERATOR
         {
             ofstream file("toy_information.csv",ios :: out);
             for(auto it : data_matrix) file<<it.first<<","<<(it.second)->quantity<<","<<(it.second)->price<<","<<(it.second)->out_of_stock_flag<<"\n";
+            file.close();
+        }
+
+        int getBalance(string id)
+        {
+            ifstream file("customer_details.csv");
+            string row,word;
+            while(1)
+            {
+                if(!getline(file,row)) return;
+                stringstream word(row);
+                getline(word,row,',');
+                if(row==id)
+                {                     
+                    getline(word,row,',');
+                    getline(word,row,',');
+                    return stoi(row);
+                } 
+            }
             file.close();
         }
 };

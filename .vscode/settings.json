@@ -1,5 +1,20 @@
 {
     "files.associations": {
-        "iosfwd": "cpp"
+        "iosfwd": "cpp",
+        "iostream": "cpp",
+        "ostream": "cpp",
+        "*.tcc": "cpp",
+        "array": "cpp",
+        "istream": "cpp",
+        "limits": "cpp",
+        "numeric": "cpp",
+        "sstream": "cpp",
+        "streambuf": "cpp",
+        "utility": "cpp",
+        "bitset": "cpp",
+        "cstdlib": "cpp",
+        "algorithm": "cpp",
+        "functional": "cpp",
+        "regex": "cpp"
     }
 }

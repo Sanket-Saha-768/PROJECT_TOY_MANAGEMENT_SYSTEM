@@ -1,0 +1,62 @@
+--------General Interface------------------
+
+Welcome to Toy Shop Management Interface 
+1 -> Login as Admin
+2 -> Login as Customer 
+0 -> Exit Toy Shop Management Interface
+Enter your choice : 
+
+For admin :
+login()
+{
+    Enter Login id : 
+    Enter Password : 
+    if successfull call Admin interface on loop until exit 
+}
+Successful login!!
+
+Admin Interface()
+{
+
+
+    0 -> exit // this takes back to the general interface
+}
+
+For user :
+Enter Login id : 
+Enter Password : 
+
+Successful login!!
+
+User interface()
+{
+
+    0 -> exit // this takes back to the general interface
+} 
+
+
+inside loginMenu()
+{
+    cout<<entep password
+    cout << enter id
+    bool status = login(id,password);
+    if(status) interface();
+    else loginMenu();
+}
+
+menu > 1 or 2 
+
+login (1)
+{
+    cout("enter uname)
+    cin<<uname
+    cout<<
+    cin<<pass
+    aionfoainf
+
+    the pass is alright
+    if 1 
+    admin login(username pass )
+    if 2
+    Customer login
+}
