@@ -2,8 +2,8 @@
 
 Admin :: Admin()
 {
-    id=Admin1;
-    password=pass985;
+    id="Admin1";
+    password="pass985";
 }
 
 void menu()
