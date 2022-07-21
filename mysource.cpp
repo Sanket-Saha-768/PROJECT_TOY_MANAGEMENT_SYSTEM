@@ -289,7 +289,7 @@ bool Admin ::login(string id_p, string password_p)
     return true;
 }
 
-void Admin ::delete_toy(string toy_name)
+void Admin ::delete_toy()
 {
     string toy_name;
 
@@ -344,6 +344,37 @@ void Admin ::create_user()
     // file.open("customer_details.csv", ios::app);
     // file << username << " " << password << endl;
     // file.close();
+}
+
+bool Customer :: purchase(string toy_name)
+{
+    Toy * item=search(toy_name);
+    time_t timesec = time(0);
+    if(item)
+    {
+        int balance = getBalance(username);
+        // int price = get_price(toy_name);
+        if (balance >= item->price)
+        {
+            update_customer_details(username,password,balance-item->price);
+            //update purchase record
+            update_purchase_record(username,toy_name,1,item->price,timesec);
+            update_toy(toy_name,item->quantity-1,item->price,((item->quantity-1==0) ? true : false)); 
+            //update purchase reciept
+            //call function to open purchase reciept
+            print_reciept(toy_name,item->quantity-1,item->price,timesec);
+            return true;
+        }
+        else{
+            cout<<"Not enough balance"<<endl;
+            return true;
+        }
+    }
+    else{
+        cout<<"Toy Out of Stock"<<endl;
+        return false;
+    }
+
 }
 
 void Admin :: interface_admin(){
@@ -465,8 +496,7 @@ void Customer ::interface()
                     cout<<"The toy is not available in the store"<<endl;
         } 
     break;
-    case 4:
-        cout<<"Remaining Balance - "<<getBalance(username)<<endl;
+    case 4: cout<<"Remaining Balance - "<<getBalance(username)<<endl;
         break;
     default:
         break;
@@ -560,38 +590,6 @@ bool Customer ::search_toy(string toy_name)
     }
 */
 
-
-
-bool Customer :: purchase(string toy_name)
-{
-    Toy * item=search(toy_name);
-    time_t timesec = time(0);
-    if(item)
-    {
-        int balance = getBalance(username);
-        // int price = get_price(toy_name);
-        if (balance >= item->price)
-        {
-            update_customer_details(username,password,balance-item->price);
-            //update purchase record
-            update_purchase_record(username,toy_name,1,item->price,timesec);
-            update_toy(toy_name,item->quantity-1,item->price,((item->quantity-1==0) ? true : false)); 
-            //update purchase reciept
-            //call function to open purchase reciept
-            print_reciept(toy_name,item->quantity-1,item->price,timesec);
-            return true;
-        }
-        else{
-            cout<<"Not enough balance"<<endl;
-            return true;
-        }
-    }
-    else{
-        cout<<"Toy Out of Stock"<<endl;
-        return false;
-    }
-
-}
 
 int generalMenu(){
     int choice;
