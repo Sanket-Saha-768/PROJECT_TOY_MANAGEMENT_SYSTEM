@@ -381,50 +381,38 @@ bool Customer ::purchase(string toy_name)
     }
 }
 
-// void Admin :: interface_admin(){
-//     int choice;
-//     cout << "1 - Purchase a Toy" << endl;
-//     cout << "2 - View Toy List" << endl;
-//     cout << "3 - Search a Toy" << endl;
-//     cout << "4 - Display Balance" << endl;
-//     cout << "0 - Exit" << endl;
-//     cout << "Enter your choice" << endl;
-//     cin >> choice;
+void Admin ::interface_admin()
+{
+    int choice;
+    cout << "1 - Create a Toy" << endl;
+    cout << "2 - Update Toy" << endl;
+    cout << "3 - Delete a Toy" << endl;
+    cout << "0 - Exit" << endl;
+    cout << "Enter your choice" << endl;
+    cin >> choice;
 
-//     switch (choice)
-//     {
-//     case 1:{
-//         string toy_name;
-//         cout<<"What toy do you want to purchase? ";
-//         cin>>toy_name;
-//         if(purchase(toy_name))
-//         {
-//             cout<<"Purchase called successfully";
-//         }
-//         else
-//             cout<<"Purchase unsuccessfull";
-//     } break;
-//     case 2:
-//         //show file list
-//         break;
-//     case 3:{
-//         string toy_name;
-//         cout << "What toy do you want to search? ";
-//         cin >> toy_name;
-//         if (search(toy_name))
-//         {
-//             cout << "The Toy is available in the store"<<endl;
-//         }
-//         else
-//             cout<<"The toy is not available in the store"<<endl;
-//     } break;
-//     case 4:
-//         cout<<"Remaining Balance - "<<getBalance(username)<<endl;
-//         break;
-//     default:
-//         break;
-//     }
-// }
+    switch (choice)
+    {
+    case 1:
+    {
+        create_toy();
+    }
+    break;
+    case 2:
+        update_toy();
+        break;
+    case 3:
+    {
+        delete_toy();
+    }
+    break;
+    case 0:
+        exit(0);
+        break;
+    default:
+        break;
+    }
+}
 
 bool Customer ::login(string id_p, string password_p)
 {
