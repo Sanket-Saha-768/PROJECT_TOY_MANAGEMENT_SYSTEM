@@ -48,7 +48,7 @@ void CSV_FILE_ITERATOR ::inputData(string name, int quantity, int price, bool oo
 
 void CSV_FILE_ITERATOR ::create_customer(string customer_id, string password, int balance)
 {
-    ofstream file("customer_record.csv", ios ::app | ios ::out);
+    ofstream file("customer_details.csv", ios ::app | ios ::out);
     file << customer_id << "," << password << "," << balance << endl;
     file.close();
 }
@@ -440,10 +440,9 @@ void Admin ::interface_admin()
 
 bool Customer ::login(string id_p, string password_p)
 {
-    int tries = 0;
+    int tries = 0; bool assignment=false;
     ifstream file("customer_details.csv");
     string row, word, line;
-    cout << row << endl;
     getline(file, row);
     while (1)
     {
@@ -456,15 +455,16 @@ bool Customer ::login(string id_p, string password_p)
             username = row;
             getline(word, row, ',');
             password = row;
+            assignment=true;
             break;
         }
-        else
-        {
-            cout << "XXXXXXXX  INVALID USER ID. TRY AGAIN!! XXXXXXXXX" << endl;
-            cout << endl
-                 << endl;
-            menu();
-        }
+    }
+    if(!assignment)
+    {
+        cout << "XXXXXXXX  INVALID USER ID. TRY AGAIN!! XXXXXXXXX" << endl;
+        cout << endl
+                << endl;
+        menu();
     }
     while (1)
     {
