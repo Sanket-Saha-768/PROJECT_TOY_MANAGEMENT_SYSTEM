@@ -1,35 +1,36 @@
 #include "myheader.h"
 
-
 void menu()
 {
     int choice;
-    cout<<"Welcome to Toy Shop Management Interface"<<endl;
-    cout<<"1 -> Login as Admin"<<endl;
-    cout<<"2 -> Login as Customer"<<endl;
-    cout<<"0 -> Exit Toy Shop Management Interface"<<endl;
-    cout<<"Enter your choice : "<<endl;
-    cin>>choice;
-    if (choice == 0) return;
-    string id,password;
-    cout<<"Enter Login id : ";
-    cin>>id; 
-    cout<<"Enter Password : ";
-    cin>>password;
-    if(choice==1)
+    cout << "Welcome to Toy Shop Management Interface" << endl;
+    cout << "1 -> Login as Admin" << endl;
+    cout << "2 -> Login as Customer" << endl;
+    cout << "0 -> Exit Toy Shop Management Interface" << endl;
+    cout << "Enter your choice : " << endl;
+    cin >> choice;
+    if (choice == 0)
+        return;
+    string id, password;
+    cout << "Enter Login id : ";
+    cin >> id;
+    cout << "Enter Password : ";
+    cin >> password;
+    if (choice == 1)
     {
         Admin admin;
-        admin.login(id,password);        
+        admin.login(id, password);
     }
-    else if(choice==2)
+    else if (choice == 2)
     {
         Customer customer;
-        customer.login(id,password);
+        customer.login(id, password);
     }
-    else menu(); 
+    else
+        menu();
 }
 
-void CSV_FILE_ITERATOR :: inputData(string name, int quantity, int price, bool oos)
+void CSV_FILE_ITERATOR ::inputData(string name, int quantity, int price, bool oos)
 {
     fstream file;
     file.open("toy_information.csv", ios ::out | ios ::app);
@@ -37,21 +38,21 @@ void CSV_FILE_ITERATOR :: inputData(string name, int quantity, int price, bool o
     file.close();
 }
 
-void CSV_FILE_ITERATOR :: create_customer(string customer_id,string password, int balance)
+void CSV_FILE_ITERATOR ::create_customer(string customer_id, string password, int balance)
 {
-    ofstream file("customer_record.csv",ios :: app | ios :: out);
-    file<<customer_id<<","<<password<<","<<balance<<endl;
+    ofstream file("customer_record.csv", ios ::app | ios ::out);
+    file << customer_id << "," << password << "," << balance << endl;
     file.close();
 }
 
-void CSV_FILE_ITERATOR :: update_purchase_record(string customer_id,string toy_name,int purchase_quantity,int toy_price,time_t date_and_time)
+void CSV_FILE_ITERATOR ::update_purchase_record(string customer_id, string toy_name, int purchase_quantity, int toy_price, time_t date_and_time)
 {
-    ofstream file("purchase_record.csv",ios :: app);
-    file<<customer_id<<","<<toy_name<<","<<purchase_quantity<<","<<toy_price<<","<<date_and_time<<endl;
-    file.close();    
+    ofstream file("purchase_record.csv", ios ::app);
+    file << customer_id << "," << toy_name << "," << purchase_quantity << "," << toy_price << "," << date_and_time << endl;
+    file.close();
 }
 
-Toy* CSV_FILE_ITERATOR :: search(string name) // send the toy object to the purchase function
+Toy *CSV_FILE_ITERATOR ::search(string name) // send the toy object to the purchase function
 {
     fstream file;
     string s, word, token, temp;
@@ -86,7 +87,7 @@ Toy* CSV_FILE_ITERATOR :: search(string name) // send the toy object to the purc
     */
 }
 
-map<string, Toy *> CSV_FILE_ITERATOR :: converter()
+map<string, Toy *> CSV_FILE_ITERATOR ::converter()
 {
     ifstream file;
     string toy_name, token, temp;
@@ -115,7 +116,7 @@ map<string, Toy *> CSV_FILE_ITERATOR :: converter()
     return dataMatrix;
 }
 
-void CSV_FILE_ITERATOR :: delete_toy(string name)
+void CSV_FILE_ITERATOR ::delete_toy(string name)
 {
     fstream source_file("toy_information.csv", ios ::in | ios ::app);
     string line, word, toy_name;
@@ -135,7 +136,7 @@ void CSV_FILE_ITERATOR :: delete_toy(string name)
     rename("new_toy.csv", "toy_information.csv");
 }
 
-void CSV_FILE_ITERATOR :: update_toy(string name, int quantity, int price, bool oos)
+void CSV_FILE_ITERATOR ::update_toy(string name, int quantity, int price, bool oos)
 {
     fstream source_file("toy_information.csv", ios ::in | ios ::app);
     string line, word, toy_name;
@@ -163,7 +164,7 @@ void CSV_FILE_ITERATOR :: update_toy(string name, int quantity, int price, bool 
     rename("new_toy.csv", "toy_information.csv");
 }
 
-void CSV_FILE_ITERATOR :: view_list()
+void CSV_FILE_ITERATOR ::view_list()
 {
     ifstream file("toy_information.csv");
     string row;
@@ -176,7 +177,7 @@ void CSV_FILE_ITERATOR :: view_list()
     file.close();
 }
 
-void CSV_FILE_ITERATOR :: View_List_Customer()
+void CSV_FILE_ITERATOR ::View_List_Customer()
 {
     ifstream file("toy_information.csv");
     string row, word;
@@ -194,7 +195,7 @@ void CSV_FILE_ITERATOR :: View_List_Customer()
     file.close();
 }
 
-void CSV_FILE_ITERATOR :: write_back(map<string, Toy *> data_matrix)
+void CSV_FILE_ITERATOR ::write_back(map<string, Toy *> data_matrix)
 {
     ofstream file("toy_information.csv", ios ::out);
     for (auto it : data_matrix)
@@ -202,7 +203,7 @@ void CSV_FILE_ITERATOR :: write_back(map<string, Toy *> data_matrix)
     file.close();
 }
 
-int CSV_FILE_ITERATOR :: getBalance(string id)
+int CSV_FILE_ITERATOR ::getBalance(string id)
 {
     ifstream file("customer_details.csv");
     string row, word;
@@ -222,23 +223,26 @@ int CSV_FILE_ITERATOR :: getBalance(string id)
     file.close();
 }
 
-void CSV_FILE_ITERATOR :: update_customer_details(string id,string password,int balance)
+void CSV_FILE_ITERATOR ::update_customer_details(string id, string password, int balance)
 {
     ifstream file("customer_details.csv");
-    ofstream file1("customer_details_copy.csv",ios :: out);
-    string row,word,cell;
+    ofstream file1("customer_details_copy.csv", ios ::out);
+    string row, word, cell;
     while (1)
     {
-        if (!getline(file, row)) return;
+        if (!getline(file, row))
+            return;
         stringstream word(row);
         getline(word, cell, ',');
-        if (cell != id) file1<<row<<endl;
-        else file1<<id<<","<<password<<","<<balance<<endl;
+        if (cell != id)
+            file1 << row << endl;
+        else
+            file1 << id << "," << password << "," << balance << endl;
     }
     file.close();
     file1.close();
     remove("customer_details.csv");
-    rename("customer_details_copy.csv","customer_details.csv");
+    rename("customer_details_copy.csv", "customer_details.csv");
 }
 
 void Admin ::create_admin(string id_p, string password_p)
@@ -296,7 +300,7 @@ void Admin ::delete_toy()
     cout << "Enter the name of the toy to be DELETED : ";
     cin >> toy_name;
 
-    CSV_FILE_ITERATOR :: delete_toy(toy_name);
+    CSV_FILE_ITERATOR ::delete_toy(toy_name);
 }
 
 void Admin ::create_toy()
@@ -311,9 +315,8 @@ void Admin ::create_toy()
     cin >> quantity;
     cout << "Enter the price of the NEW toy : ";
     cin >> price;
-    
 
-    inputData(toy_name,quantity,price,false);
+    inputData(toy_name, quantity, price, false);
 }
 
 void Admin ::update_toy()
@@ -329,10 +332,10 @@ void Admin ::update_toy()
     cin >> quantity;
     cout << "Enter the price of the UPDATED toy : ";
     cin >> price;
-    cout <<"If toy is out of stock? : ";
+    cout << "If toy is out of stock? : ";
     cin >> oos;
 
-    CSV_FILE_ITERATOR :: update_toy(toy_name,quantity,price,oos);
+    CSV_FILE_ITERATOR ::update_toy(toy_name, quantity, price, oos);
 }
 
 void Admin ::create_user()
@@ -346,81 +349,82 @@ void Admin ::create_user()
     // file.close();
 }
 
-bool Customer :: purchase(string toy_name)
+bool Customer ::purchase(string toy_name)
 {
-    Toy * item=search(toy_name);
+    Toy *item = search(toy_name);
     time_t timesec = time(0);
-    if(item)
+    if (item)
     {
         int balance = getBalance(username);
         // int price = get_price(toy_name);
         if (balance >= item->price)
         {
-            update_customer_details(username,password,balance-item->price);
-            //update purchase record
-            update_purchase_record(username,toy_name,1,item->price,timesec);
-            update_toy(toy_name,item->quantity-1,item->price,((item->quantity-1==0) ? true : false)); 
-            //update purchase reciept
-            //call function to open purchase reciept
-            print_reciept(toy_name,item->quantity-1,item->price,timesec);
+            update_customer_details(username, password, balance - item->price);
+            // update purchase record
+            update_purchase_record(username, toy_name, 1, item->price, timesec);
+            update_toy(toy_name, item->quantity - 1, item->price, ((item->quantity - 1 == 0) ? true : false));
+            // update purchase reciept
+            // call function to open purchase reciept
+            print_reciept(toy_name, item->quantity - 1, item->price, timesec);
             return true;
         }
-        else{
-            cout<<"Not enough balance"<<endl;
+        else
+        {
+            cout << "Not enough balance" << endl;
             return true;
         }
     }
-    else{
-        cout<<"Toy Out of Stock"<<endl;
+    else
+    {
+        cout << "Toy Out of Stock" << endl;
         return false;
     }
-
 }
 
-void Admin :: interface_admin(){
-    int choice;
-    cout << "1 - Purchase a Toy" << endl;
-    cout << "2 - View Toy List" << endl;
-    cout << "3 - Search a Toy" << endl;
-    cout << "4 - Display Balance" << endl;
-    cout << "0 - Exit" << endl;
-    cout << "Enter your choice" << endl;
-    cin >> choice;
+// void Admin :: interface_admin(){
+//     int choice;
+//     cout << "1 - Purchase a Toy" << endl;
+//     cout << "2 - View Toy List" << endl;
+//     cout << "3 - Search a Toy" << endl;
+//     cout << "4 - Display Balance" << endl;
+//     cout << "0 - Exit" << endl;
+//     cout << "Enter your choice" << endl;
+//     cin >> choice;
 
-    switch (choice)
-    {
-    case 1:{
-        string toy_name;
-        cout<<"What toy do you want to purchase? ";
-        cin>>toy_name;
-        if(purchase(toy_name))
-        {
-            cout<<"Purchase called successfully";
-        }
-        else
-            cout<<"Purchase unsuccessfull";
-    } break;
-    case 2:
-        //show file list
-        break;
-    case 3:{
-        string toy_name;
-        cout << "What toy do you want to search? ";
-        cin >> toy_name;
-        if (search(toy_name))
-        {
-            cout << "The Toy is available in the store"<<endl;
-        }
-        else
-            cout<<"The toy is not available in the store"<<endl;
-    } break;
-    case 4:
-        cout<<"Remaining Balance - "<<getBalance(username)<<endl;
-        break;
-    default:
-        break;
-    }
-}
+//     switch (choice)
+//     {
+//     case 1:{
+//         string toy_name;
+//         cout<<"What toy do you want to purchase? ";
+//         cin>>toy_name;
+//         if(purchase(toy_name))
+//         {
+//             cout<<"Purchase called successfully";
+//         }
+//         else
+//             cout<<"Purchase unsuccessfull";
+//     } break;
+//     case 2:
+//         //show file list
+//         break;
+//     case 3:{
+//         string toy_name;
+//         cout << "What toy do you want to search? ";
+//         cin >> toy_name;
+//         if (search(toy_name))
+//         {
+//             cout << "The Toy is available in the store"<<endl;
+//         }
+//         else
+//             cout<<"The toy is not available in the store"<<endl;
+//     } break;
+//     case 4:
+//         cout<<"Remaining Balance - "<<getBalance(username)<<endl;
+//         break;
+//     default:
+//         break;
+//     }
+// }
 
 bool Customer ::login(string id_p, string password_p)
 {
@@ -471,32 +475,37 @@ void Customer ::interface()
 
     switch (choice)
     {
-    case 1:{
+    case 1:
+    {
         string toy_name;
-        cout<<"What toy do you want to purchase? ";
-        cin>>toy_name;
-        if(purchase(toy_name))
+        cout << "What toy do you want to purchase? ";
+        cin >> toy_name;
+        if (purchase(toy_name))
         {
-            cout<<"Purchase successfull!!!"<<endl;
+            cout << "Purchase successfull!!!" << endl;
         }
         else
-            cout<<"Purchase unsuccessfull!!!"<<endl;
-    } break;
-    case 2: view_toys_list();
+            cout << "Purchase unsuccessfull!!!" << endl;
+    }
     break;
-    case 3 : {
-                string toy_name;
-                cout << "What toy do you want to search? ";
-                cin >> toy_name;
-                if (search(toy_name))
-                {
-                    cout << "The Toy is available in the store"<<endl;
-                }
-                else
-                    cout<<"The toy is not available in the store"<<endl;
-        } 
+    case 2:
+        view_toys_list();
+        break;
+    case 3:
+    {
+        string toy_name;
+        cout << "What toy do you want to search? ";
+        cin >> toy_name;
+        if (search(toy_name))
+        {
+            cout << "The Toy is available in the store" << endl;
+        }
+        else
+            cout << "The toy is not available in the store" << endl;
+    }
     break;
-    case 4: cout<<"Remaining Balance - "<<getBalance(username)<<endl;
+    case 4:
+        cout << "Remaining Balance - " << getBalance(username) << endl;
         break;
     default:
         break;
@@ -590,24 +599,24 @@ bool Customer ::search_toy(string toy_name)
     }
 */
 
-
-int generalMenu(){
+int generalMenu()
+{
     int choice;
-    cout<<"Welcome to Toy Shop Management Interface"<<endl;
-    cout<<"1 -> Login as an Admin"<<endl;
-    cout<<"2 -> Login as a Customer"<<endl;
-    cout<<"0 -> Exit Toy Shop Management Interface"<<endl;
-    cout<<"Enter your choice :";
-    cin>>choice;
+    cout << "Welcome to Toy Shop Management Interface" << endl;
+    cout << "1 -> Login as an Admin" << endl;
+    cout << "2 -> Login as a Customer" << endl;
+    cout << "0 -> Exit Toy Shop Management Interface" << endl;
+    cout << "Enter your choice :";
+    cin >> choice;
     return choice;
 }
 
 void print_reciept(string toy_name, int quantity, int price, time_t pur_id)
 {
-    cout<<"Thank you for purchasing with us!"<<endl;
-    cout<<"Your Bill : "<< endl<< endl;
-    cout<<toy_name<<" x "<< quantity << endl;
-    cout<<"Total Price : "<< price*quantity << endl;
-    cout<<"Your Purchase ID : "<< pur_id << endl;
+    cout << "Thank you for purchasing with us!" << endl;
+    cout << "Your Bill : " << endl
+         << endl;
+    cout << toy_name << " x " << quantity << endl;
+    cout << "Total Price : " << price * quantity << endl;
+    cout << "Your Purchase ID : " << pur_id << endl;
 }
- 
