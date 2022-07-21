@@ -45,6 +45,7 @@ public:
     bool login(string id_p, string password_p);
     void delete_toy();
     void update_toy();
+    void view_toy_list();
     void create_toy();
     void create_user();
 };
